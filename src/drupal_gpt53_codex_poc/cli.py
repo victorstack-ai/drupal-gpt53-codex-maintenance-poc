@@ -19,6 +19,8 @@ def _render_text(scan, findings, provider_output, emit_prompt: bool) -> str:
         f"Test files: {scan.test_files}",
         f"TODO/FIXME markers: {scan.todo_count}",
         f"README: {'yes' if scan.readme_present else 'no'}",
+        f"Services: {'yes' if scan.services_present else 'no'}",
+        f"Drush services: {'yes' if scan.drush_services_present else 'no'}",
         "",
         "Findings:",
     ]
@@ -48,6 +50,8 @@ def _render_json(scan, findings, provider_output, emit_prompt: bool) -> str:
             "test_files": scan.test_files,
             "todo_count": scan.todo_count,
             "readme_present": scan.readme_present,
+            "services_present": scan.services_present,
+            "drush_services_present": scan.drush_services_present,
         },
         "findings": [
             {"severity": f.severity, "message": f.message, "evidence": f.evidence}

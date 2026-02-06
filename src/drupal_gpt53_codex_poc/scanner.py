@@ -1,13 +1,12 @@
 from __future__ import annotations
 
 import json
+from collections.abc import Iterable
 from pathlib import Path
-from typing import Iterable
 
 import yaml
 
 from .models import ModuleScan
-
 
 IGNORED_DIRS = {".git", ".venv", "node_modules", "vendor", "dist", "build"}
 TEXT_EXTENSIONS = {".php", ".yml", ".yaml", ".md", ".txt"}
@@ -63,9 +62,7 @@ def scan_module(module_path: str) -> ModuleScan:
             todo_count += content.count("TODO") + content.count("FIXME")
 
     readme_present = (root / "README.md").exists()
-    services_present = (root / "*.services.yml").exists() or any(
-        path.name.endswith(".services.yml") for path in root.glob("*.services.yml")
-    )
+    services_present = any(root.glob("*.services.yml"))
     drush_services_present = (root / "drush.services.yml").exists()
 
     return ModuleScan(

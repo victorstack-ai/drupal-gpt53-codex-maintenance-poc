@@ -16,6 +16,8 @@ def build_prompt(scan: ModuleScan, findings: list[Finding]) -> str:
         "todo_count": scan.todo_count,
         "readme_present": scan.readme_present,
         "composer_present": bool(scan.composer_path),
+        "services_present": scan.services_present,
+        "drush_services_present": scan.drush_services_present,
     }
     findings_payload = [
         {"severity": finding.severity, "message": finding.message, "evidence": finding.evidence}
